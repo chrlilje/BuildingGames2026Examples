@@ -1,5 +1,5 @@
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
@@ -7,6 +7,8 @@ function draw() {
   // Update all stone
   updateAllStones(stones);
   
+  // Draw the target
+  drawTarget(width/2,height/2,width*0.2);
   // Dísplay all stones
   drawAllStones(stones);
 }
