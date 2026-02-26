@@ -1,6 +1,6 @@
 function setup() {
   createCanvas(400, 400);
-  switchScene(scene1);
+  setFirstScene(scene1);
 }
 
 function draw() {
