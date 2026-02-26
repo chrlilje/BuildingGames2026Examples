@@ -16,6 +16,17 @@ function updateAllStones(stoneArray){
     for(let stone of stoneArray){
         updateStone(stone);
     }
+    
+    // Bounce sten mod hinanden
+    for(let stone1 of stoneArray){
+        for(let stone2 of stoneArray){
+            // Collides? 
+            let distS1S2 = dist(stone1.x,stone1.y,stone2.x,stone2.y);
+            if(distS1S2 < stone1.size){
+                collide(stone2,stone1);
+            }
+        }
+    }
 }
 
 function wallBounce(s, left, right, top, bottom) {
@@ -45,4 +56,36 @@ function wallBounce(s, left, right, top, bottom) {
         s.y = bottom - radius;
         s.vy = -Math.abs(s.vy);      // bevæg opad
     }
+}
+
+function collide(b1, b2) {
+    
+    // 1. Normalvektor mellem centre
+    let dx = b1.x - b2.x;
+    let dy = b1.y - b2.y;
+    
+    let dist = Math.sqrt(dx * dx + dy * dy);
+    
+    // Undgå division med 0
+    if (dist === 0) return;
+    
+    let nx = dx / dist;
+    let ny = dy / dist;
+    
+    // 2. Relativ hastighed
+    let rvx = b1.vx - b2.vx;
+    let rvy = b1.vy - b2.vy;
+    
+    // 3. Projektion på normalen
+    let p = rvx * nx + rvy * ny;
+    
+    // Hvis de bevæger sig væk fra hinanden → ingen kollision
+    if (p > 0) return;
+    
+    // 4. Opdater hastigheder (ens masse, elastisk)
+    b1.vx = b1.vx - p * nx;
+    b1.vy = b1.vy - p * ny;
+    
+    b2.vx = b2.vx + p * nx;
+    b2.vy = b2.vy + p * ny;
 }
