@@ -4,18 +4,13 @@ function setup() {
 }
 
 function draw() {
-    // if there is a current scene and it has a render function, call it
-  if (currentScene && currentScene.render) {
+    // Update the current scene
+    currentScene.update();
+    // render the current scene
     currentScene.render();
-  }
 }
 
 function keyPressed() {
     // A keypressed event has occured
-    // If there is a current scene and it has a keyPressed function, call it
-  if (currentScene && currentScene.keyPressed) {
     currentScene.keyPressed();
-  }
 }
-
-
